@@ -26,7 +26,7 @@ public class JwtUtil {
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() + 100 * 60 * 60 * 10))
                 .signWith(Keys.hmacShaKeyFor(Decoders.BASE64.decode(SECRET_KEY)), Jwts.SIG.HS256)
-                .compact();
+                .compact(); // Serializes the JWT into its three parts: Header, Payload, and Signature
     }
 
     public String extractUsername(String token) {
@@ -34,10 +34,10 @@ public class JwtUtil {
     }
 
     private Claims extractAllClaims(String token) {
-        return Jwts.parser()
+        return Jwts.parser() // creates a new JWT parser builder,
                 .verifyWith(Keys.hmacShaKeyFor(Decoders.BASE64.decode(SECRET_KEY)))
                 .build()
-                .parseSignedClaims(token)
+                .parseSignedClaims(token) // Parses the JWT string (token) into its three components: header, payload, and signature
                 .getPayload();
     }
 
