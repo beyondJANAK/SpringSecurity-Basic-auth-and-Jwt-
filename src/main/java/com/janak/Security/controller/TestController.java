@@ -25,13 +25,13 @@ public class TestController {
 
 
     @PostMapping("/register")
-    public Users register(@RequestBody Users user) {
+    public String register(@RequestBody Users user) {
         return userService.registerUser(user);
     }
 
     @PostMapping("/login")
     public String login(@RequestBody Users user) {
-        Authentication authentication = authenticationManager.authenticate(
+        authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword())
         );
         UserDetails userDetails = customUserDetailsService.loadUserByUsername(user.getUsername());
