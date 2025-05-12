@@ -17,6 +17,13 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
 
+    /**
+     * Registers a new user in the system.
+     *
+     * @param user The user to be registered.
+     * @return A JWT token for the registered user.
+     * @throws RuntimeException if the user already exists.
+     */
     public String  registerUser(Users user) {
         if (userRepository.existsById(user.getUsername())) {
             throw new RuntimeException("User already exists");
